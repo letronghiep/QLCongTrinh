@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace QLCongTrinh.Models
 {
-    public partial class QLCongTrinh : DbContext
+    public partial class QLCongTrinhDb : DbContext
     {
-        public QLCongTrinh()
+        public QLCongTrinhDb()
             : base("name=QLCongTrinh")
         {
         }

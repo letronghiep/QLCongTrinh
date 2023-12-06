@@ -3,33 +3,69 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/assets/css/global.css" rel="stylesheet" type="text/css" />
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-        <div class="container">
-            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                </ul>
+    <div class="">
+        <aside id="sidebar" class="sidebar" style="top: 0">
+            <h3>Quản lý công trình</h3>
+            <ul class="sidebar-nav d-flex flex-column h-100" id="sidebar-nav">
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="@Url.Action("Index", "HomeAdmin")">
+                        <i class='bx bxs-dashboard'></i>
+                        <span>Bảng điều khiển</span>
+                    </a>
+                </li><!-- End Dashboard Nav -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="@Url.Action("About", "Home")">
+                        <i class='bx bxs-hard-hat'></i>
+                        <span>Danh sách dự án</span>
+                    </a>
+
+                </li><!-- End Dashboard Nav -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="@Url.Action("Index", "TaiKhoanAdmins")">
+                        <i class='bx bx-user'></i>
+                        <span>Danh sách tài khoản</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="@Url.Action("About", "Home")">
+                        <i class='bx bx-user'></i>
+                        <span>Danh sách nhân viên</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="@Url.Action("About", "Home")">
+                        <i class='bx bxs-edit'></i>
+                        <span>Danh sách báo cáo</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="@Url.Action("About", "Home")">
+                        <i class='bx bx-line-chart'></i>
+                        <span>Tiến độ công trình</span>
+                    </a>
+                </li>
+                <li class="nav-item mt-auto">
+                    <a class="nav-link collapsed" href="@Url.Action("Logout", "Home")">
+                        <i class='bx bx-log-out'></i>
+                        <span>Đăng xuất</span>
+                    </a>
+                </li>
+            </ul>
+
+        </aside>
+        <div class="" style="margin-left: 300px">
+            <div class="card-header py-3 px-4">
+                <h3>@ViewBag.Title</h3>
             </div>
+            @RenderBody()
         </div>
-    </nav>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")

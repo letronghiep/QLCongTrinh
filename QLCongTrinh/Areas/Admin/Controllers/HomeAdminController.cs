@@ -6,11 +6,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace QLCongTrinh.Controllers
+namespace QLCongTrinh.Areas.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class HomeAdminController : Controller
     {
         QLCongTrinhDb db = new QLCongTrinhDb();
+
         [HttpGet]
         public ActionResult Login()
         {
@@ -21,10 +22,10 @@ namespace QLCongTrinh.Controllers
         {
             string password = Helper.GetMD5(MatKhau);
             var userCheck = db.TaiKhoans.FirstOrDefault(acc => acc.TenTaiKhoan.Equals(TenTaiKhoan) && acc.MatKhau.Equals(password));
-            if (userCheck != null && userCheck.IdQuyen == 2)
+            if (userCheck != null && userCheck.IdQuyen == 1)
             {
-                Session["manager"] = userCheck;
-                return RedirectToAction("Index", "CongTrinhs");
+                Session["user"] = userCheck;
+                return RedirectToAction("Index", "HomeAdmin");
 
             }
             else
@@ -35,20 +36,22 @@ namespace QLCongTrinh.Controllers
         }
         public ActionResult Logout()
         {
-            Session.Remove("manager");
+            Session.Remove("user");
             return RedirectToAction("Index");
         }
-
-
-
+        // GET: Admin/Home
         public ActionResult Index()
         {
-            List<CongTrinh> dsDA = db.CongTrinhs.Select(s => s).ToList();
-            if (Session["manager"] == null)
+            if (Session["user"] == null)
             {
                 return RedirectToAction("Login");
             }
-            return View("Index", "CongTrinhs");
+            else
+                return View();
+        }
+        public ActionResult About()
+        {
+            return View();
         }
     }
 }

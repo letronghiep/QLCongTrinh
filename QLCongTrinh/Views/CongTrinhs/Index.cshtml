@@ -1,0 +1,76 @@
+﻿@model IEnumerable<QLCongTrinh.Models.CongTrinh>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TaiKhoan.TenTaiKhoan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenCT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayBatDau)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayKetThuc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChuThau)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ThoChinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ThoPhu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoDu)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaiKhoan.TenTaiKhoan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenCT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayBatDau)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayKetThuc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChuThau)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ThoChinh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ThoPhu)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SoDu)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaCT }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaCT }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaCT })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,45 @@
+﻿@model QLCongTrinh.Models.TaiKhoan
+
+@{
+    ViewBag.Url = "Tài khoản / Chi tiết";
+    ViewBag.Title = "Chi tiết";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+    var imageUrl = "~/wwwroot/Images/Accounts/" + Model.ImageUrl;
+
+}
+<div class="card">
+
+    <div class="row">
+        <div class="col col-lg-4 d-flex flex-column justify-content-center align-items-center border rounded-3 bg-body-tertiary p-4">
+            <img src="@Url.Content(imageUrl)" class="rounded-circle object-fit-cover" width="180" height="180" />
+            <div class="text-center mt-3">
+                <p> <strong>Họ tên: </strong> @Model.TenNguoiDung</p>
+                <p> <strong>Vai trò: </strong> @ViewBag.TenQuyen</p>
+
+            </div>
+        </div>
+        <div class="col col-lg-8">
+            <div class="card-body">
+                <div class="card-title">
+                    <h5 class="fw-bold">Thông tin chi tiết</h5>
+                    <span class="">@Model.mota</span>
+
+                </div>
+                <div class="d-flex border px-3 py-4 align-items-center">
+                    <p class="me-4 mb-0 border rounded-circle text-center d-flex justify-content-center align-items-center" style="width: 40px; height: 40px">@ViewBag.SoCT</p>
+                    <div>
+                        <p class="mb-0">Công trình</p>
+                        @Html.ActionLink("Xem chi tiết", "Index", "CongTrinhAdmins", new { })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<p>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.MaTaiKhoan }) |
+    @Html.ActionLink("Quay lại", "Index")
+</p>

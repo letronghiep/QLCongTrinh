@@ -1,0 +1,89 @@
+﻿@model QLCongTrinh.Models.CongTrinh
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>CongTrinh</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TaiKhoan.TenTaiKhoan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaiKhoan.TenTaiKhoan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenCT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenCT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayBatDau)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayBatDau)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayKetThuc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayKetThuc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChuThau)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChuThau)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ThoChinh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ThoChinh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ThoPhu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ThoPhu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoDu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoDu)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

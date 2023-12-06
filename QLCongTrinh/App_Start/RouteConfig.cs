@@ -18,6 +18,12 @@ namespace QLCongTrinh
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+              name: "Admin",
+              url: "admin/{controller}/{action}/{id}",
+              defaults: new { controller = "HomeAdmin", action = "Index", id = UrlParameter.Optional },
+              namespaces: new[] { "QLCongTrinh.Areas.Admin.Controllers" } // Định rõ namespace cho Controller bên ngoài Area
+          );
         }
     }
 }
