@@ -10,8 +10,8 @@
 <p>
     @Html.ActionLink("Thêm mới", "Create")
 </p>
-<table class="table">
-    <tr>
+<table class="table table-bordered">
+    <tr class="table-active text-center">
         <th>
             @Html.DisplayNameFor(model => model.TenTaiKhoan)
         </th>
@@ -42,10 +42,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Quyen.TenQuyen)
             </td>
-            <td>
-                @Html.ActionLink("Sửa", "Edit", new { id = item.MaTaiKhoan }) |
-                @Html.ActionLink("Chi tiết", "Details", new { id = item.MaTaiKhoan }) |
-                @Html.ActionLink("Xóa", "Delete", new { id = item.MaTaiKhoan })
+            <td align="center">
+                <a href="@Url.Action("Details", new {id = item.MaTaiKhoan})" class="btn btn-outline-info btn-sm text-black">
+                    <i class='bx bx-search-alt-2'></i>
+                </a>
+                <a href="@Url.Action("Edit", new {id = item.MaTaiKhoan})" class="btn btn-primary btn-sm">
+                    <i class='bx bxs-pencil'></i>
+                </a>
+                <a href="@Url.Action("Delete", new {id = item.MaTaiKhoan})" class="btn btn-danger btn-sm">
+                    <i class='bx bx-trash-alt'></i>
+                </a>
             </td>
         </tr>
     }

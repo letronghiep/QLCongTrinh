@@ -1,0 +1,46 @@
+﻿@model IEnumerable<QLCongTrinh.Models.ChiTietCT>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CongTrinh.TenCT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NhanVien.TenNV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ViTri.TenVT)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CongTrinh.TenCT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NhanVien.TenNV)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ViTri.TenVT)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new {  employee_id=item.MaNV, project_id = item.MaCT }) |
+            @Html.ActionLink("Details", "Details", new { employee_id = item.MaNV, project_id = item.MaCT }) |
+            @Html.ActionLink("Delete", "Delete", new { employee_id = item.MaNV, project_id = item.MaCT })
+        </td>
+    </tr>
+}
+
+</table>

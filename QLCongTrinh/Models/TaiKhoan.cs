@@ -18,6 +18,7 @@
         }
 
         [Key]
+        [DisplayName("Mã tài khoản")]
         public int MaTaiKhoan { get; set; }
 
         [Required(ErrorMessage = "Tên tài khoản không được để trống")]

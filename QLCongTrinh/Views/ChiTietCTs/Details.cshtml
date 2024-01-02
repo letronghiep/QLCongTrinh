@@ -1,0 +1,43 @@
+﻿@model QLCongTrinh.Models.ChiTietCT
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ChiTietCT</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CongTrinh.TenCT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CongTrinh.TenCT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NhanVien.TenNV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NhanVien.TenNV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ViTri.TenVT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ViTri.TenVT)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,7 +1,8 @@
-namespace QLCongTrinh.Models
+﻿namespace QLCongTrinh.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -18,8 +19,9 @@ namespace QLCongTrinh.Models
         [Key]
         public int IdQuyen { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Nhập tên quyền")]
         [StringLength(255)]
+        [DisplayName("Quyền")]
         public string TenQuyen { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

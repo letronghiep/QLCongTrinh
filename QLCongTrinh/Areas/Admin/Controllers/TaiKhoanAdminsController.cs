@@ -51,31 +51,31 @@ namespace QLCongTrinh.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MaTaiKhoan,TenTaiKhoan,MatKhau,TenNguoiDung,IdQuyen,ImageUrl,mota")] TaiKhoan taiKhoan)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                try
                 {
                     taiKhoan.ImageUrl = "";
                     var f = Request.Files["ImageUpload"];
                     if (f != null && f.ContentLength > 0)
                     {
                         string fileName = System.IO.Path.GetFileName(f.FileName);
-                        string filePath = Server.MapPath("~/wwwroot/Images/Accounts/" + fileName);
+                        string filePath = Server.MapPath("~/wwwroot/Image/Accounts/" + fileName);
                         f.SaveAs(filePath);
                         taiKhoan.ImageUrl = fileName;
                     }
                     taiKhoan.MatKhau = Helper.GetMD5(taiKhoan.MatKhau);
                     db.TaiKhoans.Add(taiKhoan);
                     db.SaveChanges();
-                }
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
             }
-            catch (Exception)
-            {
-                ViewBag.IdQuyen = new SelectList(db.Quyens, "IdQuyen", "TenQuyen", taiKhoan.IdQuyen);
-                ViewBag.err = "Có lỗi xảy ra khi nhập";
-                return View(taiKhoan);
+                catch (Exception ex)
+                {
+                ViewBag.err = "Có lỗi xảy ra khi nhập " + ex.Message;
             }
+        }
+            ViewBag.IdQuyen = new SelectList(db.Quyens, "IdQuyen", "TenQuyen", taiKhoan.IdQuyen);
+            return View(taiKhoan);
         }
 
         // GET: Admin/TaiKhoanAdmins/Edit/5

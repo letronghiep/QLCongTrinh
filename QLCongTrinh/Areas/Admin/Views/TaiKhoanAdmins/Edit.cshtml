@@ -9,13 +9,12 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.MaTaiKhoan)
 
         <div class="form-group">
             @Html.LabelFor(model => model.TenTaiKhoan, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-12">
                 @Html.EditorFor(model => model.TenTaiKhoan, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TenTaiKhoan, "", new { @class = "text-danger" })
             </div>
@@ -23,7 +22,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.MatKhau, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-12">
                 @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
             </div>
@@ -31,7 +30,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.TenNguoiDung, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-12">
                 @Html.EditorFor(model => model.TenNguoiDung, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TenNguoiDung, "", new { @class = "text-danger" })
             </div>
@@ -39,7 +38,7 @@
 
         <div class="form-group">
             Quyền
-            <div class="col-md-10">
+            <div class="col-md-12">
                 @Html.DropDownList("IdQuyen", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.IdQuyen, "", new { @class = "text-danger" })
             </div>
@@ -47,20 +46,18 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.ImageUrl, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-12">
                 @Html.EditorFor(model => model.ImageUrl, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ImageUrl, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Lưu" class="btn btn-default" />
+            <div class="col-md-offset-2 col-md-12 justify-content-center d-flex gap-2 mt-2">
+                <input type="submit" value="Lưu" class="btn btn-success btn-sm" style="width: 140px" />
+                @Html.ActionLink("Quay lại", "Index", null, new {@class="btn btn-light btn-sm", @style="width: 140px"})
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Quay lại", "Index")
-</div>
