@@ -1,0 +1,38 @@
+﻿@model QLCongTrinh.Models.TienDo
+
+@{
+    ViewBag.Title = "Chi tiết";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var hoanthanh = Model.TrangThai == true ? "Đã hoàn thành" : "Chưa hoàn thành";
+}
+<div>
+    <dt>
+        @Html.DisplayNameFor(model => model.CongTrinh.TenCT)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.CongTrinh.TenCT)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.TrangThai) 
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.TrangThai) <span>@hoanthanh</span>
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.GhiChu)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.GhiChu)
+    </dd>
+
+    </dl>
+    <div class="d-flex justify-content-center gap-3">
+        @Html.ActionLink("Sửa", "Edit", new { id = Model.MaCT }, new {@class="btn btn-sm btn-primary", @style="width: 140px"})
+        @Html.ActionLink("Quay lại", "Index", new { @class = "btn btn-sm btn-light", @style = "width: 140px" })
+    </div>
+</div>

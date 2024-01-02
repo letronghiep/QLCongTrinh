@@ -2,6 +2,7 @@
 using QLCongTrinh.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -47,7 +48,16 @@ namespace QLCongTrinh.Areas.Admin.Controllers
                 return RedirectToAction("Login");
             }
             else
-                return View();
+            {
+
+                var query = new TT
+                {
+                    congTrinhs = db.CongTrinhs.ToList(),
+                    nhanViens = db.NhanViens.ToList(),
+                    taiKhoans = db.TaiKhoans.ToList(),
+                };
+                return View(query);
+            }
         }
         public ActionResult About()
         {

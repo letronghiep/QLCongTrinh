@@ -1,0 +1,115 @@
+﻿@model IEnumerable<QLCongTrinh.Models.CongTrinh>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    input, select, textarea {
+        max-width: 100%;
+    }
+
+    .ul.pagination {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+        background-color: #ddd;
+    }
+
+    ul.pagination li {
+        display: inline;
+    }
+
+        ul.pagination li a {
+            color: black;
+            float: left;
+            padding: 4px 12px;
+            text-decoration: none;
+            transition: background-color .3s;
+        }
+
+        ul.pagination li.active {
+            background-color: #0d6efd;
+            color: white;
+        }
+
+        ul.pagination li a:hover:not(.active) {
+            background-color: #ddd;
+        }
+</style>
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NganSach.MaCT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NhanVien.TenNV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaiKhoan.TenTaiKhoan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TienDo.GhiChu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenCT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayBatDau)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayKetThuc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HinhAnh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.created_at)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NganSach.MaCT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NhanVien.TenNV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaiKhoan.TenTaiKhoan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TienDo.GhiChu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenCT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayBatDau)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayKetThuc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HinhAnh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.created_at)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MaCT }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MaCT }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MaCT })
+            </td>
+        </tr>
+    }
+
+</table>

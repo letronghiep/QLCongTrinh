@@ -1,0 +1,113 @@
+﻿@model PagedList.IPagedList<QLCongTrinh.Models.NhanVien>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Danh sách nhân viên";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<style>
+    input, select, textarea {
+        max-width: 100%;
+    }
+
+    .ul.pagination {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+        background-color: #ddd;
+    }
+
+    ul.pagination li {
+        display: inline;
+    }
+
+        ul.pagination li a {
+            color: black;
+            float: left;
+            padding: 4px 12px;
+            text-decoration: none;
+            transition: background-color .3s;
+        }
+
+        ul.pagination li.active {
+            background-color: #0d6efd;
+            color: white;
+        }
+
+        ul.pagination li a:hover:not(.active) {
+            background-color: #ddd;
+        }
+</style>
+
+<div class="mb-2">
+    <div>
+        @Html.ActionLink("Thêm mới", "Create", null, new { @class = "btn btn-primary btn-sm text-bg-primary mb-3" })
+        @using (Html.BeginForm("Index", "NhanViens", FormMethod.Get, new { @class = "d-flex justify-content-between" }))
+        {
+            <div>
+                <label for="page">Hiển thị</label>
+                <input style="width: 50px" type="number" name="pageSize" value="@Model.PageSize" min="10" id="pageSize" onchange="updateTable()" />
+                <span>dữ liệu</span>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <input type="text" value="@ViewBag.Keyword" name="searchString" placeholder="Nhập tên nhân viên" class="form-control" />
+                <input type="submit" value="Tìm kiếm" class="btn btn-info text-bg-primary btn-group" />
+            </div>
+        }
+    </div>
+
+</div>
+<table class="table table-bordered">
+    <tr class="text-center w-auto table-info">
+        <th>
+            @Html.ActionLink("Tên nhân viên", "Index", new { sortProperty = "TenNV", sortOrder = ViewBag.SortOrder, searchString = ViewBag.Keyword })
+        </th>
+        <th>
+            @Html.ActionLink("Lương", "Index", new { sortProperty = "Luong", sortOrder = ViewBag.SortOrder, searchString = ViewBag.Keyword })
+
+        </th>
+        <th>
+            Mô tả
+
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        var subString = item.Mota.Length > 90 ? item.Mota.Substring(0, 90) + "..." : item.Mota;
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenNV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Luong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => subString)
+                @*@subString*@
+            </td>
+            <td align="center">
+                <a href="@Url.Action("Details", new { id=item.MaNV })" class="btn btn-outline-info btn-sm text-black">
+                    <i class='bx bx-search-alt-2'></i>
+                </a>
+                <a href="@Url.Action("Edit", new { id=item.MaNV })" class="btn btn-primary btn-sm">
+                    <i class='bx bxs-pencil'></i>
+                </a>
+                <a href="@Url.Action("Delete", new { id=item.MaNV })" class="btn btn-danger btn-sm">
+                    <i class='bx bx-trash-alt'></i>
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>
+<p class="float-end">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+    of @Model.PageCount
+</p>
+<nav class="database-pagination" style="display: flex; justify-content: center; margin-top: 20px">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</nav>

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<QLCongTrinh.Models.NganSach>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Ngân sách</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Thêm mới", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CongTrinh.TenCT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NganSachBD)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CongTrinh.TenCT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NganSachBD)
+            </td>
+            <td>
+                @Html.ActionLink("Sửa", "Edit", new { id=item.MaCT }) |
+                @Html.ActionLink("Chi tiết", "Details", new { id=item.MaCT }) |
+                @Html.ActionLink("Xóa", "Delete", new { id=item.MaCT })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

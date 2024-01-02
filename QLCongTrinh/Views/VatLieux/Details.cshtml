@@ -1,0 +1,55 @@
+﻿@model QLCongTrinh.Models.VatLieu
+
+@{
+    ViewBag.Title = "Chi tiết";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CongTrinh.TenCT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CongTrinh.TenCT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayCungCap)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayCungCap)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoLuong)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoLuong)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DonGia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DonGia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hinhanh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.hinhanh)
+        </dd>
+
+    </dl>
+</div>
+<p class="d-flex justify-content-center gap-3">
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }, new {@class="btn btn-sm btn-primary", @style="width: 140px"})
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-sm btn-light", @style = "width: 140px" })
+</p>

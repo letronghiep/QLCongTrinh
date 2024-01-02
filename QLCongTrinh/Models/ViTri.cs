@@ -1,4 +1,4 @@
-namespace QLCongTrinh.Models
+﻿namespace QLCongTrinh.Models
 {
     using System;
     using System.Collections.Generic;
@@ -12,18 +12,17 @@ namespace QLCongTrinh.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ViTri()
         {
-            NhanViens = new HashSet<NhanVien>();
+            ChiTietCTs = new HashSet<ChiTietCT>();
         }
 
         [Key]
-        [StringLength(255)]
-        public string MaVT { get; set; }
+        public int MaVT { get; set; }
 
         [Required]
         [StringLength(255)]
         public string TenVT { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NhanVien> NhanViens { get; set; }
+        public virtual ICollection<ChiTietCT> ChiTietCTs { get; set; }
     }
 }

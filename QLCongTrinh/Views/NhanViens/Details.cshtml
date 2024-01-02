@@ -1,0 +1,116 @@
+﻿@model QLCongTrinh.Models.NhanVien
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var imageUrl = "~/wwwroot/Image/NhanVien/" + Model.hinhanh;
+    var soCongTrinh = Model.ChiTietCTs.Count();
+    List<string> colors = new List<string> { "#00ffff", "#7fff00", "#dc143c", "#228b22" };
+    Random rand = new Random();
+}
+<style>
+
+    .ct_item {
+        transition: background 0.2s ease-in;
+        border-left: 4px solid;
+        border-radius: 6px 0 0 6px;
+        border-color: @rand.Next(0, colors.Count);
+    }
+
+        .ct_item:hover {
+            background-color: whitesmoke;
+        }
+</style>
+<div class="container row" style="">
+    <div class="col col-lg-4 shadow d-flex flex-column rounded-2 px-0 ">
+        @*<h4 class="border-start border-info p-3 border-4 fw-bold shadow rounded-top rounded-bottom">Thông tin nhân viên</h4>*@
+        <div class="w-100 px-3 mt-4" style="font-size: 16px">
+            <img class="d-flex img-fluid rounded-circle m-auto mt-3" src="@Url.Content(imageUrl)" style="width: 140px" />
+            <div class="mt-1">
+                <p class="fw-light mb-0">
+                    @Html.DisplayNameFor(model => model.TenNV)
+                </p>
+                <p class="mb-0">
+                    @Html.DisplayFor(model => model.TenNV)
+                </p>
+            </div>
+            <div class="mt-1">
+                <p class="fw-light mb-0">
+                    @Html.DisplayNameFor(model => model.Sdt)
+                </p>
+                <p class="mb-0">
+                    @Html.DisplayFor(model => model.Sdt)
+                </p>
+            </div>
+            <div class="mt-1">
+                <p class="fw-light mb-0">
+                    Địa chỉ
+                </p>
+                <p class="mb-0">
+                    @Html.DisplayFor(model => model.Xa) - @Html.DisplayFor(model => model.Huyen) - @Html.DisplayFor(model => model.Tinh)
+                </p>
+            </div>
+            <div class="mt-1">
+                <p class="fw-light mb-1">
+                    @Html.DisplayNameFor(model => model.Luong)
+                </p>
+                <p class="mb-0">
+                    @Html.DisplayFor(model => model.Luong)
+                </p>
+            </div>
+            <div class="mt-1">
+                <p class="fw-light mb-1">
+                    Số công trình tham gia
+                </p>
+                <p class="mb-0">
+                    @soCongTrinh
+                </p>
+            </div>
+            <div class="mt-1">
+                <p class="mb-0 fw-light">Mô tả: </p>
+                <p class="mb-0" style="text-align: justify; font-size: 15px">@Model.Mota</p>
+            </div>
+        </div>
+        <div class="px-3 mt-1 mb-4">
+            @Html.ActionLink("Sửa", "Edit", new { id = Model.MaNV }, new { @class = "btn btn-sm btn-primary", @style = "width: 140px" })
+            @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-sm btn-light", @style = "width: 140px" })
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <h4 class="border-start border-success border-4 rounded-top rounded-bottom p-3 fw-bold shadow">Các công trình tham gia</h4>
+        <div class="shadow rounded-2">
+            <p class="py-3 px-4">Số lượng(@soCongTrinh)</p>
+            @foreach (var item in Model.ChiTietCTs)
+            {
+                var imageCT = "~/wwwroot/Image/" + item.CongTrinh.HinhAnh;
+
+                <a href="@Url.Action("Details", "CongTrinhs", new {id = item.MaCT} )" class="text-black d-flex gap-3 px-3 py-2 shadow ct_item">
+                    <img src="@Url.Content(imageCT)" style="width: 60px; height: 60px" class="rounded-circle" />
+                    <div>
+                        <p class="mb-0">
+                            @item.CongTrinh.TenCT
+                        </p>
+                        @if (item.CongTrinh.NgayKetThuc != null)
+                        {
+                            <p style="font-size: 14px" class="text-black-50 mb-1">
+                                @Html.DisplayFor(modelItem => item.CongTrinh.NgayBatDau) - @Html.DisplayFor(modelItem => item.CongTrinh.NgayKetThuc)
+
+                            </p>
+                        }
+                        else
+                        {
+                            <p style="font-size: 14px" class="text-black-50 mb-0">
+                                @Html.DisplayFor(modelItem => item.CongTrinh.NgayBatDau) - <span>Chưa xác định</span>
+
+                            </p>
+                        }
+                        <p class="text-black-50  mb-0" style="font-size: 14px">
+                            Vai trò: @item.ViTri.TenVT
+                        </p>
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+
+</div>
+

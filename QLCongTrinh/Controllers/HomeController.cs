@@ -43,7 +43,6 @@ namespace QLCongTrinh.Controllers
 
         public ActionResult Index()
         {
-            List<CongTrinh> dsDA = db.CongTrinhs.Select(s => s).ToList();
             if (Session["manager"] == null)
             {
                 return RedirectToAction("Login");

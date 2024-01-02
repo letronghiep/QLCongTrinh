@@ -1,0 +1,120 @@
+﻿@model QLCongTrinh.Models.CongTrinh
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var chuthau = Model.ChiTietCTs.FirstOrDefault(e => e.MaVT == Model.MaChuThau).NhanVien.TenNV;
+    var nhanvien = Model.ChiTietCTs.Count();
+    var tiendo = Model.TienDo.GhiChu;
+    var vatlieu = Model.VatLieux.ToList();
+    var dautu = Model.VatLieux.Sum(vl => vl.ThanhTien);
+    var sodu = Model.NganSach.NganSachBD - dautu;
+}
+
+<style>
+    .table > :not(caption) > * > * {
+        padding: 4px 4px;
+    }
+    .export:hover {
+        scale: 1.25;
+    }
+</style>
+<div class="d-flex flex-column h-100">
+
+    <div class="bao_cao mt-4 container">
+        <h4 class="text-center fw-bold">Báo cáo tiến trình</h4>
+        <div class="d-flex justify-content-around">
+            <div>
+                <table class="table table-borderless">
+                    <tr>
+                        <th>Tên dự án:</th>
+                        <td>@Html.DisplayFor(model => model.TenCT)</td>
+                    </tr>
+                    <tr>
+                        <th>Ngày bắt đầu:</th>
+                        <td>@Html.DisplayFor(model => model.NgayBatDau)</td>
+                    </tr>
+                    <tr>
+                        <th>Ngày kết thúc:</th>
+                        <td>@Html.DisplayFor(model => model.NgayKetThuc)</td>
+                    </tr>
+                    <tr>
+                        <th>Chủ thầu:</th>
+                        <td>@chuthau</td>
+                    </tr>
+                    <tr>
+                        <th>Số lượng nhân viên:</th>
+                        <td>@nhanvien</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <table class="table table-borderless">
+                    <tr>
+                        <th>Ngân sách ban đầu:</th>
+                        <td>@Html.DisplayFor(model => model.NganSach.NganSachBD)</td>
+                    </tr>
+                    <tr>
+                        <th>Số dư:</th>
+                        @*<td>@Html.DisplayFor(model => model.NganSach.NganSachBD)</td>*@
+                        <td>@sodu</td>
+                    </tr>
+                    <tr>
+                        <th>Tiến độ:</th>
+                        <td>@tiendo</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <a href="@Url.Action("ExportToExcel", new {id=Model.MaCT})" style="font-size: 30px; float: right" class="export">
+            <i class='bx bx-import'></i> 
+        </a>
+        @*Danh sách vật liệu*@
+        <table class="table table-bordered">
+            <tr class="text-center table-info">
+                <th>
+                    Tên vật liệu
+                </th>
+                <th>
+                    Ngày cung cấp
+                </th>
+                <th>
+                    Số lượng
+                </th>
+                <th>
+                    Đơn giá
+                </th>
+                <th>
+                    Thành tiền
+                </th>
+            </tr>
+            @foreach (var item in vatlieu)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ten)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NgayCungCap)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SoLuong)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DonGia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ThanhTien)
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <div class="d-flex justify-content-center mt-6 gap-2">
+            @*@Html.ActionLink("Sửa", "Edit", new { id = Model.MaCT }, new { @class = "btn btn-primary btn-sm", @style = "width: 180px" })*@
+            @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-light btn-sm", @style = "width: 180px" })
+        </div>
+    </div>
+
+        @*@Html.ActionLink("Xuất báo cáo", "ExportToExcel", new {id = Model.MaCT}, new {@class="btn btn-success"} );*@
+
+</div>

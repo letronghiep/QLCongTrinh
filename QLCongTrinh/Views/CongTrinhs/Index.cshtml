@@ -1,76 +1,132 @@
-﻿@model IEnumerable<QLCongTrinh.Models.CongTrinh>
-
+﻿@model PagedList.IPagedList<QLCongTrinh.Models.CongTrinh>
+@using PagedList.Mvc
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Danh sách công trình";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    input, select, textarea {
+        max-width: 100%;
+    }
 
-<h2>Index</h2>
+    .ul.pagination {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+        background-color: #ddd;
+    }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
+    ul.pagination li {
+        display: inline;
+    }
+
+        ul.pagination li a {
+            color: black;
+            float: left;
+            padding: 4px 12px;
+            text-decoration: none;
+            transition: background-color .3s;
+        }
+
+        ul.pagination li.active {
+            background-color: #0d6efd;
+            color: white;
+        }
+
+        ul.pagination li a:hover:not(.active) {
+            background-color: #ddd;
+        }
+</style>
+<div class="mb-2">
+    <div>
+        @Html.ActionLink("Thêm mới", "Create", null, new { @class = "btn btn-primary btn-sm text-bg-primary mb-3" })
+        @using (Html.BeginForm("Index", "CongTrinhs", FormMethod.Get, new { @class = "d-flex justify-content-between" }))
+        {
+            <div>
+                <label for="page">Hiển thị</label>
+                <input style="width: 50px" type="number" name="pageSize" value="@Model.PageSize" min="10" id="pageSize" onchange="updateTable()" />
+                <span>dữ liệu</span>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <input type="text" value="@ViewBag.Keyword" name="searchString" placeholder="Nhập công trình" class="form-control" />
+                <input type="submit" value="Tìm kiếm" class="btn btn-info text-bg-primary btn-group" />
+            </div>
+        }
+    </div>
+
+</div>
+<table class="table table-bordered" id="data-table">
+    <tr class="table-info text-center">
+        @*<th>
+                @Html.ActionLink("Tài khoản", "Index", new { sortProperty = "MaTaiKhoan", sortOrder = ViewBag.SortOrder, searchString = ViewBag.Keyword })
+
+            </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.TaiKhoan.TenTaiKhoan)
+            @Html.ActionLink("Tên công trình", "Index", new { sortProperty = "TenCT", sortOrder = ViewBag.SortOrder, searchString = ViewBag.Keyword })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TenCT)
+            @Html.ActionLink("Ngày khởi công", "Index", new { sortProperty = "NgayBatDau", sortOrder = ViewBag.SortOrder, searchString = ViewBag.Keyword })
+
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NgayBatDau)
+            @Html.ActionLink("Ngày hoàn thành", "Index", new { sortProperty = "NgayKetThuc", sortOrder = ViewBag.SortOrder, searchString = ViewBag.Keyword })
+
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NgayKetThuc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ChuThau)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ThoChinh)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ThoPhu)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SoDu)
+            @Html.ActionLink("Ngân sách", "Index", new { sortProperty = "NganSach.NganSachBD", sortOrder = ViewBag.SortOrder, searchString = ViewBag.Keyword })
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TaiKhoan.TenTaiKhoan)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenCT)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NgayBatDau)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NgayKetThuc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ChuThau)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ThoChinh)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ThoPhu)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SoDu)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MaCT }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MaCT }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MaCT })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        var subString = item.TenCT.Length > 40 ? item.TenCT.Substring(0, 40) + "..." : item.TenCT;
+
+        <tr>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.TaiKhoan.TenTaiKhoan)
+                </td>*@
+            <td>
+                @*@Html.DisplayFor(modelItem => item.TenCT)*@
+                @subString
+            </td>
+            <td align="center">
+                @Html.DisplayFor(modelItem => item.NgayBatDau)
+            </td>
+            <td align="center">
+                @Html.DisplayFor(modelItem => item.NgayKetThuc)
+            </td>
+            <td align="center">
+                @Html.DisplayFor(modelItem => item.NganSach.NganSachBD)
+            </td>
+            <td align="center">
+                <a href="@Url.Action("Details", new {id = item.MaCT})" class="btn btn-outline-info btn-sm text-black">
+                    <i class='bx bx-search-alt-2'></i>
+                </a>
+                <a href="@Url.Action("Edit", new {id = item.MaCT})" class="btn btn-primary btn-sm">
+                    <i class='bx bxs-pencil'></i>
+                </a>
+                <a href="@Url.Action("Delete", new {id = item.MaCT})" class="btn btn-danger btn-sm">
+                    <i class='bx bx-trash-alt'></i>
+                </a>
+                <a href="@Url.Action("TaoBaoCao", new {id = item.MaCT})" class="btn btn-success btn-sm">
+                    <i class='bx bx-check'></i>
+                </a>
+            </td>
+        </tr>
+    }
 
 </table>
+<p class="float-end">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+    of @Model.PageCount
+</p>
+<nav class="database-pagination" style="display: flex; justify-content: center; margin-top: 20px">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</nav>
+<script type="text/javascript">
+    function updateTable() {
+        var pageSize = document.getElementById("pageSize").value;
+        document.forms[0].submit();
+    }
+</script>

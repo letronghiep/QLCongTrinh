@@ -1,0 +1,57 @@
+﻿@model IEnumerable<QLCongTrinh.Models.VatLieu>
+
+@{
+    ViewBag.Title = "Danh sách vật liệu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+    @Html.ActionLink("Thêm vật liệu", "Create")
+</p>
+<table class="table table-bordered">
+    <tr class="text-center table-info">
+        <th>
+            @Html.DisplayNameFor(model => model.CongTrinh.TenCT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayCungCap)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoLuong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DonGia)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CongTrinh.TenCT)
+            </td>
+            <td align="center">
+                @Html.DisplayFor(modelItem => item.NgayCungCap)
+            </td>
+            <td align="center">
+                @Html.DisplayFor(modelItem => item.SoLuong)
+            </td>
+            <td align="center">
+                @Html.DisplayFor(modelItem => item.DonGia)
+            </td>
+            <td align="center">
+                <a href="@Url.Action("Details", new { MaVL = item.MaVL, MaCT = item.MaCT })" class="btn btn-outline-info btn-sm text-black">
+                    <i class='bx bx-search-alt-2'></i>
+                </a>
+                <a href="@Url.Action("Edit", new { MaVL = item.MaVL, MaCT = item.MaCT })" class="btn btn-primary btn-sm">
+                    <i class='bx bxs-pencil'></i>
+                </a>
+                <a href="@Url.Action("Delete", new { MaVL = item.MaVL, MaCT = item.MaCT })" class="btn btn-danger btn-sm">
+                    <i class='bx bx-trash-alt'></i>
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>

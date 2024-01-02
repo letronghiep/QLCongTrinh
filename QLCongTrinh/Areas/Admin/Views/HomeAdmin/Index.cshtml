@@ -1,8 +1,116 @@
-﻿
+﻿@model QLCongTrinh.Models.TT
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var soCT = Model.congTrinhs.Count();
+    var soNv = Model.nhanViens.Count();
+    var soTK = Model.taiKhoans.Count();
+
+    var hoanthanh = Model.congTrinhs.Where(ct => ct.TienDo.TrangThai == true).Count() * 100 / Model.congTrinhs.Count();
+    var chuahoanthanh = Model.congTrinhs.Where(ct => ct.TienDo.TrangThai == false).Count() * 100 / Model.congTrinhs.Count();
+    var u5 = Model.nhanViens.Where(nv => nv.Luong < 5000000).Count() * 100 / Model.nhanViens.Count();
+    var l5_10 = Model.nhanViens.Where(nv => nv.Luong >= 5000000 && nv.Luong < 10000000).Count() * 100 / Model.nhanViens.Count();
+    var l10_15 = Model.nhanViens.Where(nv => nv.Luong >= 10000000 && nv.Luong < 15000000).Count() * 100 / Model.nhanViens.Count();
+    var l15_20 = Model.nhanViens.Where(nv => nv.Luong >= 15000000 && nv.Luong < 20000000).Count() * 100 / Model.nhanViens.Count();
+    var l20_25 = Model.nhanViens.Where(nv => nv.Luong >= 20000000 && nv.Luong < 25000000).Count() * 100 / Model.nhanViens.Count();
+    var l25_30 = Model.nhanViens.Where(nv => nv.Luong >= 25000000 && nv.Luong < 30000000).Count() * 100 / Model.nhanViens.Count();
+    var o30 = Model.nhanViens.Where(nv => nv.Luong >= 30000000).Count() * 100 / Model.nhanViens.Count();
+
+
 }
 
-<h2>Index</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="d-flex gap-3 border p-3 align-items-center border-success" style="font-size: 20px">
+                <i class='bx bxs-user-account' style="font-size: 50px"></i>
+                <div>
+                    @soTK <span>Tài khoản</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="d-flex gap-3 border p-3 align-items-center border-success" style="font-size: 20px">
+                <i class='bx bxs-hard-hat' style="font-size: 50px"></i>
+                <div>
+                    @soCT <span>Công trình</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="d-flex gap-3 border p-3 align-items-center border-success" style="font-size: 20px">
+                <i class='bx bxs-user-circle' style="font-size: 50px"></i>
+                <div>
+                    @soNv <span>Nhân viên</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <h4 class="fw-semibold">Tiến độ công trình</h4>
+            <canvas id="doughnut" style="max-height: 400px; display: block; box-sizing: border-box; height: 400px; width: 527px; font-size: 16px" width="659" height="500"></canvas>
+
+        </div>
+        <div class="col col-lg-12">
+            <h4 class="fw-semibold">Bảng lương</h4>
+            <canvas id="lineChart" style="max-height: 400px; display: block; box-sizing: border-box; height: 263px; width: 527px;" width="659" height="329"></canvas>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        new Chart(document.querySelector('#doughnut'), {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    'Hoàn thành',
+                    'Chưa hoàn thành',
+                ],
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [@hoanthanh, @chuahoanthanh],
+                    backgroundColor: [
+                        'rgb(54, 162, 235)',
+                        'rgb(255, 99, 132)',
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+
+        });
+    });
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+        new Chart(document.querySelector('#lineChart'), {
+            type: 'line',
+            data: {
+                labels: ['<5tr', '5tr-10tr', '10tr-15tr', '15tr-20tr', '20tr-25tr', '25tr-30tr', '>30tr'],
+                datasets: [{
+                    label: 'Line Chart',
+                    data: [@u5, @l5_10, @l10_15, @l15_20, @l20_25, @l25_30, @o30],
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+
+</script>
 

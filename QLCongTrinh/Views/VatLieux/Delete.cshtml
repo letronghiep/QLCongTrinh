@@ -1,0 +1,61 @@
+﻿@model QLCongTrinh.Models.VatLieu
+
+@{
+    ViewBag.Title = "Xác nhận xóa?";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CongTrinh.TenCT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CongTrinh.TenCT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayCungCap)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayCungCap)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoLuong)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoLuong)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DonGia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DonGia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hinhanh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.hinhanh)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="d-flex justify-content-center gap-3">
+            <input type="submit" value="Xóa" class="btn btn-danger btn-sm" style="width: 140px" />
+            @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-sm btn-light", @style = "width: 140px" })
+        </div>
+    }
+</div>

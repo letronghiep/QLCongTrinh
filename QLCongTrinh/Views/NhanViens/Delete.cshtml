@@ -1,0 +1,62 @@
+﻿@model QLCongTrinh.Models.NhanVien
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Xác nhận xóa?</h3>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TaiKhoan.TenTaiKhoan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaiKhoan.TenTaiKhoan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenNV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenNV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Luong)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Luong)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hinhanh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.hinhanh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mota)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mota)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger btn-sm" style="width: 180px" />
+            @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-light btn-sm", @style = "width: 180px" })
+        </div>
+    }
+</div>
